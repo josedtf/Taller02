@@ -21,7 +21,7 @@ jobs:
 
     # Paso 3: Construir la imagen Docker desde el Dockerfile
     - name: Build Docker image
-      run: docker build -t imcg22/pokeneas-app:latest ./pokeneasAppFinal
+      run: docker build -t josedtf/pokeneas-app:latest ./pokeneasAppFinal
       # Aquí apuntamos a la ruta donde se encuentra el Dockerfile en tu proyecto
 
     # Paso 4: Subir la imagen a Docker Hub
