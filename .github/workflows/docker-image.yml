@@ -1,0 +1,30 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main   # Este workflow se ejecutará cuando hagas un push en la rama 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Se ejecutará en una máquina virtual con Ubuntu
+
+    steps:
+    # Paso 1: Clonar el código de tu repositorio
+    - name: Checkout code
+      uses: actions/checkout@v3   # Esta acción descarga el código de tu repositorio
+
+    # Paso 2: Iniciar sesión en Docker Hub
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      # Usa los secretos almacenados en GitHub para hacer login en Docker Hub
+
+    # Paso 3: Construir la imagen Docker desde el Dockerfile
+    - name: Build Docker image
+      run: docker build -t imcg22/pokeneas-app:latest ./pokeneasAppFinal
+      # Aquí apuntamos a la ruta donde se encuentra el Dockerfile en tu proyecto
+
+    # Paso 4: Subir la imagen a Docker Hub
+    - name: Push Docker image
+      run: docker push josedtf/pokeneas-app:latest
+      # Empuja (sube) la imagen a Docker Hub
